@@ -1,5 +1,10 @@
+import os
 from tkinter import *
 import math
+import winsound  # For Windows
+import pygame    # For Mac & Linux
+
+pygame.mixer.init()
 
 # ---------------------------- CONSTANTS ------------------------------- #
 PINK = "#e2979c"
@@ -53,6 +58,16 @@ def count_down(count):
         global timer
         timer = window.after(1000, count_down, count - 1)
     else:
+        # 🛎️ Play a sound when a session ends
+        try:
+            if os.name == "nt":  # Windows
+                winsound.Beep(1000, 500)  # Frequency = 1000 Hz, Duration = 500ms
+            else:  # Mac & Linux
+                pygame.mixer.music.load("alarm.mp3")  # Use an MP3 file
+                pygame.mixer.music.play()
+        except Exception as e:
+            print("Error playing sound:", e)
+
         start_timer()
         marks = ""
         work_sessions = math.floor(reps / 2)
