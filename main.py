@@ -53,6 +53,9 @@ def count_down(count):
     if sec < 10:
         sec = f"0{sec}"
 
+    if min < 10:
+        min = f"0{min}"
+
     canvas.itemconfig(timer_text, text=f"{min}:{sec}")
     if count > 0:
         global timer
